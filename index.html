@@ -6,7 +6,8 @@
     <title>Coming Soon</title>
     <style>
         body {
-            margin: 0; padding: 0;
+            margin: 0;
+            padding: 0;
             font-family: "Roboto", sans-serif;
             height: 100vh;
             display: flex;
@@ -14,51 +15,53 @@
             align-items: center;
             background-color: #f5f5f5;
         }
-
         #main {
             text-align: center;
         }
-
         h1 {
             font-size: 48px;
             margin-bottom: 20px;
             animation: bounce 2s infinite;
         }
-
         h2 {
             font-weight: 300;
             margin-bottom: 25px;
         }
-
         img {
             width: 25%;
             aspect-ratio: 125 / 50;
         }
 
-        /* Progress bar styles */
+        /* Progress bar */
         #progress {
-            width: 50%;
+            width: 45%;
             margin: 0 auto;
-            background-color: #e0e0e0;
-            border-radius: 20px;
-            overflow: hidden;
+            border-radius: 10px;
+            background-color: #a8a8a8;
             padding: 5px;
+            position: relative; /* Ensure child elements are positioned relative to this container */
         }
-
         #fill {
             background-color: #00b98b;
             height: 20px;
-            border-radius: 20px;
-            width: 0%;
+            border-radius: 10px;
+            width: 0;
+            animation: proanimate 3s forwards;
         }
-
         #barpercent {
+            position: absolute; /* Position the percentage text within the progress bar */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             color: white;
             font-size: 16px;
-            position: relative;
-            top: -22px;
         }
 
+        /* Animation for the progress bar fill */
+        @keyframes proanimate {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
         @media screen and (max-width: 600px) {
             img {
                 width: 60%;
@@ -73,16 +76,6 @@
                 width: 80%;
             }
         }
-
-        /* Bounce animation */
-        @keyframes bounce {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
     </style>
 </head>
 <body>
@@ -92,25 +85,24 @@
         <h2>We're working hard to bring something amazing!</h2>
         <div id="progress">
             <div id="fill"></div>
-            <div id="barpercent">0%</div>
+            <div id="barpercent">0%</div> <!-- Directly placing the percentage text in the barpercent div -->
         </div>
     </div>
-
     <script>
-        // JavaScript for Progress Bar Animation
-        let progress = 0;
-        const fill = document.getElementById('fill');
-        const percentText = document.getElementById('barpercent');
-
-        const interval = setInterval(() => {
-            progress += 1; // Increment progress by 1%
-            fill.style.width = progress + '%'; // Update the width of the fill
-            percentText.textContent = progress + '%'; // Update the percentage text
-
-            if (progress >= 100) {
-                clearInterval(interval); // Stop when 100% is reached
-            }
-        }, 50); // Increase every 50ms (adjust speed as needed)
+        document.addEventListener("DOMContentLoaded", function() {
+            const fill = document.getElementById("fill");
+            const barPercentText = document.getElementById("barpercent");
+            let progress = 0;
+            const loadingInterval = setInterval(() => {
+                if (progress >= 100) {
+                    clearInterval(loadingInterval);
+                } else {
+                    progress += 1;
+                    fill.style.width = progress + "%";
+                    barPercentText.innerText = progress + "%";
+                }
+            }, 30);
+        });
     </script>
 </body>
 </html>
