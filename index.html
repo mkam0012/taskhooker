@@ -1,37 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coming Soon</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #f5f5f5;
-      color: #333;
-    }
-    .container {
-      text-align: center;
-    }
-    h1 {
-      font-size: 48px;
-      margin-bottom: 10px;
-    }
-    p {
-      font-size: 18px;
-    }
-  </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon</title>
+    <style>
+        body {
+            margin: 0; padding: 0;
+            font-family: "Roboto", sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f5f5f5;
+        }
+
+        #main {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        h2 {
+            font-weight: 300;
+            margin-bottom: 25px;
+        }
+
+        img {
+            width: 25%;
+            aspect-ratio: 125 / 50;
+        }
+
+        /* Progress bar styles */
+        #progress {
+            width: 50%;
+            margin: 0 auto;
+            background-color: #e0e0e0;
+            border-radius: 20px;
+            overflow: hidden;
+            padding: 5px;
+        }
+
+        #fill {
+            background-color: #00b98b;
+            height: 20px;
+            border-radius: 20px;
+            width: 0%;
+        }
+
+        #barpercent {
+            color: white;
+            font-size: 16px;
+            position: relative;
+            top: -22px;
+        }
+
+        @media screen and (max-width: 600px) {
+            img {
+                width: 60%;
+            }
+            h1 {
+                font-size: 1.3em;
+            }
+            h2 {
+                font-size: 1.1em;
+            }
+            #progress {
+                width: 80%;
+            }
+        }
+
+        /* Bounce animation */
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Coming Soon</h1>
-    <p>We're working hard to bring something amazing!</p>
-  </div>
+    <div id="main">
+        <img src="logo.png" alt="Logo">
+        <h1>Coming Soon</h1>
+        <h2>We're working hard to bring something amazing!</h2>
+        <div id="progress">
+            <div id="fill"></div>
+            <div id="barpercent">0%</div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for Progress Bar Animation
+        let progress = 0;
+        const fill = document.getElementById('fill');
+        const percentText = document.getElementById('barpercent');
+
+        const interval = setInterval(() => {
+            progress += 1; // Increment progress by 1%
+            fill.style.width = progress + '%'; // Update the width of the fill
+            percentText.textContent = progress + '%'; // Update the percentage text
+
+            if (progress >= 100) {
+                clearInterval(interval); // Stop when 100% is reached
+            }
+        }, 50); // Increase every 50ms (adjust speed as needed)
+    </script>
 </body>
 </html>
